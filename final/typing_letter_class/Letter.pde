@@ -31,3 +31,37 @@ class Letter {
     wholeTextWidth += xPos;
   }
 }
+
+
+//RESET FORMAL QUALITIES AND DISPLAY ALL THE LETTERS
+//refresh background, clear particles, clear PGraphic 
+
+
+void displayAllLetters () {
+  background(255);
+  particles.clear();
+  pg.clear();
+  location.x = typeSize/2;
+  location.y = typeSize;
+
+
+  for (int i = 0; i < letters.length(); i++) {
+    char c = letters.charAt(i);
+    Letter l = new Letter(location, c);
+    l.display();
+
+    //RETURN AT THE END
+    if (location.x > width-200) {
+      location.y += (typeSize + typeSize/10); 
+      location.x = typeSize/2;
+    }
+
+    //KERNING
+    kerning.x = l.kerning;
+    kerning.y = 0;
+    location.add(kerning);
+
+    letterArray.add(l);
+    particlesFromPG(); // CREATE NEW PARTICLES
+  }
+}
